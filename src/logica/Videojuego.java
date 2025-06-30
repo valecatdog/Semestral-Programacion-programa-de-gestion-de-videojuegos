@@ -52,13 +52,15 @@ public class Videojuego {
         return anioLanzamiento;
     }
 
-    public void setAñoLanzamiento(LocalDate añoLanzamiento) {
+    public void setAñoLanzamiento(LocalDate anioLanzamiento) {
         if (anioLanzamiento.getYear() < 2000){
-            anioLanzamiento = LocalDate.of(2000,anioLanzamiento.getMonthValue(), anioLanzamiento.getDayOfMonth());
+            this.anioLanzamiento = LocalDate.of(2000,this.anioLanzamiento.getMonthValue(), this.anioLanzamiento.getDayOfMonth());
         }
         else{
-            this.anioLanzamiento = anioLanzamiento;
-        }
+            if (!(LocalDate.now().plusYears(2).getYear() < anioLanzamiento.getYear())){
+                this.anioLanzamiento = anioLanzamiento;
+            }
+        }      
     }
     
     public void setGeneroPorCodigo(int codigo){
