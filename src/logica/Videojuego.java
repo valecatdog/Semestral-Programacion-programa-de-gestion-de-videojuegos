@@ -1,23 +1,23 @@
 package logica;
 
-import java.time.LocalDate;
+import java.time.Year;
 
 public class Videojuego {
     private String nombre;
     private int pegi;
     private String genero; 
-    private LocalDate anioLanzamiento; 
+    private Year anioLanzamiento; 
     
     public Videojuego (){
        
     }
     
-    public Videojuego (String nombre, int pegi, String genero, LocalDate anioLanzamiento){
+    public Videojuego (String nombre, int pegi, String genero, Year anioLanzamiento){
         this.nombre = nombre;
         this.pegi = pegi;
         this.genero = genero;
-        if (anioLanzamiento.getYear() < 2000){
-            anioLanzamiento = LocalDate.of(2000,anioLanzamiento.getMonthValue(), anioLanzamiento.getDayOfMonth());
+        if (anioLanzamiento.getValue() < 2000){
+            this.anioLanzamiento = Year.of(2000);
         }
         else{
             this.anioLanzamiento = anioLanzamiento;
@@ -48,23 +48,25 @@ public class Videojuego {
         this.genero = genero;
     }
 
-    public LocalDate getAñoLanzamiento() {
+    public Year getAñoLanzamiento() {
         return anioLanzamiento;
     }
 
-    public void setAñoLanzamiento(LocalDate anioLanzamiento) {
-        if (anioLanzamiento.getYear() < 2000){
-            this.anioLanzamiento = LocalDate.of(2000,this.anioLanzamiento.getMonthValue(), this.anioLanzamiento.getDayOfMonth());
+    public void setAñoLanzamiento(Year anioLanzamiento) {
+        if (anioLanzamiento.getValue() < 2000){
+            this.anioLanzamiento = Year.of(2000);
         }
         else{
-            if (!(LocalDate.now().plusYears(2).getYear() < anioLanzamiento.getYear())){
+            if (!(anioLanzamiento.getValue() > Year.now().plusYears(2).getValue())){
                 this.anioLanzamiento = anioLanzamiento;
             }
-        }      
+        }
+          
     }
     
     public void setGeneroPorCodigo(int codigo){
-        if(codigo == 1 || codigo == 2 || codigo == 3){
+        if(codigo == 1 || codigo == 2 || codigo == 3){ //verificacion para que si se ingresa un numero invalido no se recorran 
+                                                       //todos los if
             if (codigo == 1) {
                 this.genero = "Rol";
             }
