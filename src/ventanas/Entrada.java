@@ -4,18 +4,23 @@
  */
 package ventanas;
 
+import javax.swing.DefaultListModel;
+
 /**
  *
  * @author 57815971
  */
 public class Entrada extends javax.swing.JFrame {
 
+    
+    private DefaultListModel videoJuego;
     /**
      * Creates new form Entrada
      */
     public Entrada() {
         initComponents();
         setTitle("Entrada");
+        
     }
 
     /**
