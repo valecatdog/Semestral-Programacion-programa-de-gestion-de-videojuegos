@@ -74,7 +74,7 @@ public class Entrada extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        VentanaHome home = new VentanaHome(); //KLSDHGDH home home home home
+        Home home = new Home(); //KLSDHGDH home home home home
         home.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnEntrarActionPerformed

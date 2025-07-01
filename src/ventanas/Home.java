@@ -12,23 +12,23 @@ import javax.swing.JOptionPane;
  *
  * @author hexal
  */
-public class VentanaHome extends javax.swing.JFrame {
-    private DefaultListModel videoJuego;
-    private VentanaHome home;
+public class Home extends javax.swing.JFrame {
+    private DefaultListModel videoJuegos;
+    private Home home;
     /**
      * Creates new form VentanaHome
      */
-    public VentanaHome() {
+    public Home() {
         initComponents();
         setTitle("Home");
-        videoJuego= new DefaultListModel();
+        
+        videoJuegos= new DefaultListModel();
+        jList1.setModel(videoJuegos);
+        
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        jList1.setModel(videoJuego);
+        
         
     }
-
-    
-    home = new VentanaHome();
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,9 +46,9 @@ public class VentanaHome extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnIngresar = new javax.swing.JButton();
+        btnSeleccionar = new javax.swing.JButton();
+        btnBorrar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
 
@@ -86,14 +86,24 @@ public class VentanaHome extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(jList1);
 
-        jButton1.setText("Crear");
-
-        jButton2.setText("Mostar");
-
-        jButton3.setText("Borrar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnIngresar.setText("Ingresar");
+        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnIngresarActionPerformed(evt);
+            }
+        });
+
+        btnSeleccionar.setText("Seleccionar");
+        btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarActionPerformed(evt);
+            }
+        });
+
+        btnBorrar.setText("Borrar");
+        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarActionPerformed(evt);
             }
         });
 
@@ -104,10 +114,10 @@ public class VentanaHome extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(66, 66, 66)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                    .addComponent(btnIngresar)
+                    .addComponent(btnSeleccionar)
+                    .addComponent(btnBorrar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -115,11 +125,11 @@ public class VentanaHome extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addComponent(jButton1)
+                .addComponent(btnIngresar)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(btnSeleccionar)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(btnBorrar)
                 .addContainerGap(64, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
@@ -173,15 +183,24 @@ public class VentanaHome extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       if(!videoJuego.isEmpty()){
-    int posicion =jList1.getSelectedIndex();
-    VentanaHome homeS =(home)videoJuego.getElementAt(posicion);
-    JOptionPane.showMessageDialog(this. homeS);
-          
-           
+    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+       if(!videoJuegos.isEmpty()){
+        int posicion = jList1.getSelectedIndex();
+        videoJuegos.remove(posicion);
        }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnBorrarActionPerformed
+
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+        IngresarVideojuego ventana = new IngresarVideojuego();
+        ventana.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnIngresarActionPerformed
+
+    private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
+       SeleccionVideojuego ventana = new SeleccionVideojuego();
+       ventana.setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -200,28 +219,29 @@ public class VentanaHome extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaHome().setVisible(true);
+                new Home().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnBorrar;
+    private javax.swing.JButton btnIngresar;
+    private javax.swing.JButton btnSeleccionar;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JList<String> jList1;
