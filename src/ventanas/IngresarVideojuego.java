@@ -5,6 +5,8 @@
 package ventanas;
 
 import java.time.Year;
+import logica.Videojuego;
+import static ventanas.Home.videoJuegos;
 
 /**
  *
@@ -37,12 +39,12 @@ public class IngresarVideojuego extends javax.swing.JFrame {
         btnIngresar = new javax.swing.JButton();
         txtFieldNombre = new javax.swing.JTextField();
         txtFieldGenero = new javax.swing.JTextField();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
+        rbtn3 = new javax.swing.JRadioButton();
+        rbtn12 = new javax.swing.JRadioButton();
+        rbtn5 = new javax.swing.JRadioButton();
+        rbtn16 = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
-        jRadioButton5 = new javax.swing.JRadioButton();
+        rbtn18 = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
         txtFieldAño = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -73,28 +75,33 @@ public class IngresarVideojuego extends javax.swing.JFrame {
             }
         });
 
-        grupoPEGI.add(jRadioButton1);
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("3");
+        grupoPEGI.add(rbtn3);
+        rbtn3.setSelected(true);
+        rbtn3.setText("3");
 
-        grupoPEGI.add(jRadioButton2);
-        jRadioButton2.setText("12");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+        grupoPEGI.add(rbtn12);
+        rbtn12.setText("12");
+        rbtn12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
+                rbtn12ActionPerformed(evt);
             }
         });
 
-        grupoPEGI.add(jRadioButton3);
-        jRadioButton3.setText("5");
+        grupoPEGI.add(rbtn5);
+        rbtn5.setText("5");
 
-        grupoPEGI.add(jRadioButton4);
-        jRadioButton4.setText("16");
+        grupoPEGI.add(rbtn16);
+        rbtn16.setText("16");
+        rbtn16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtn16ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Nombre:");
 
-        grupoPEGI.add(jRadioButton5);
-        jRadioButton5.setText("18");
+        grupoPEGI.add(rbtn18);
+        rbtn18.setText("18");
 
         jLabel2.setText("Año de lanzamiento:");
 
@@ -135,16 +142,16 @@ public class IngresarVideojuego extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(26, 26, 26)
-                        .addComponent(jRadioButton1)
+                        .addComponent(rbtn3)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButton3)
+                        .addComponent(rbtn5)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButton2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButton4)))
-                .addGap(23, 23, 23))
+                        .addComponent(rbtn12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rbtn16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rbtn18)))
+                .addGap(20, 20, 20))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,11 +167,11 @@ public class IngresarVideojuego extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton5)
-                    .addComponent(jRadioButton4)
-                    .addComponent(jRadioButton3))
+                    .addComponent(rbtn3)
+                    .addComponent(rbtn12)
+                    .addComponent(rbtn18)
+                    .addComponent(rbtn5)
+                    .addComponent(rbtn16))
                 .addGap(37, 37, 37)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -224,9 +231,34 @@ public class IngresarVideojuego extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        int anioLanzamiento = Integer.parseInt(txtFieldAño.getText());
-        if (anioLanzamiento < Year.now().plusYears(2).getValue()){
-            
+        Year anioLanzamiento = Year.parse(txtFieldAño.getText());
+        if (anioLanzamiento.getValue() < Year.now().plusYears(2).getValue()){// se puede mejorar
+            String nombre = txtFieldNombre.getText();
+            String genero = txtFieldGenero.getText();
+            int pegi = 0;
+            if (rbtn3.isSelected()){ // se puede mejorar
+                pegi = 3;
+            }
+            else{
+                if (rbtn5.isSelected()){
+                    pegi = 5;
+                }
+                else{
+                    if (rbtn12.isSelected()){
+                        pegi = 12;
+                    }
+                    else{
+                        if(rbtn16.isSelected()){
+                            pegi = 16;
+                        }
+                        else{
+                            pegi = 18;
+                        }
+                    }
+                }
+            }
+            Videojuego juego = new Videojuego(nombre, pegi, genero, anioLanzamiento);
+            videoJuegos.addElement(juego);
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
@@ -238,9 +270,9 @@ public class IngresarVideojuego extends javax.swing.JFrame {
         
     }//GEN-LAST:event_txtFieldGeneroKeyTyped
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+    private void rbtn12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtn12ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
+    }//GEN-LAST:event_rbtn12ActionPerformed
 
     private void txtFieldAñoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFieldAñoKeyTyped
         char c = evt.getKeyChar();
@@ -258,6 +290,10 @@ public class IngresarVideojuego extends javax.swing.JFrame {
         home.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void rbtn16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtn16ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbtn16ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -306,11 +342,11 @@ public class IngresarVideojuego extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
+    private javax.swing.JRadioButton rbtn12;
+    private javax.swing.JRadioButton rbtn16;
+    private javax.swing.JRadioButton rbtn18;
+    private javax.swing.JRadioButton rbtn3;
+    private javax.swing.JRadioButton rbtn5;
     private javax.swing.JTextField txtFieldAño;
     private javax.swing.JTextField txtFieldGenero;
     private javax.swing.JTextField txtFieldNombre;

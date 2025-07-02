@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  * @author hexal
  */
 public class Home extends javax.swing.JFrame {
-    private DefaultListModel videoJuegos;
+    public static DefaultListModel videoJuegos;
     private Home home;
     /**
      * Creates new form VentanaHome
