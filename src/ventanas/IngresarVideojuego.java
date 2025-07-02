@@ -259,6 +259,9 @@ public class IngresarVideojuego extends javax.swing.JFrame {
             }
             Videojuego juego = new Videojuego(nombre, pegi, genero, anioLanzamiento);
             videoJuegos.addElement(juego);
+            Home volver = new Home();
+            volver.setVisible(true);
+            this.dispose();
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
